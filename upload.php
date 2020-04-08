@@ -1,44 +1,27 @@
 <?php
-$target_dir = "uploads/";
-$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-$uploadOk = 1;
-$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-// Check if image file is a actual image or fake image
-if(isset($_POST["submit"])) {
-    $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-    if($check !== false) {
-        echo "File is an image - " . $check["mime"] . ".";
-        $uploadOk = 1;
-    } else {
-        echo "File is not an image.";
-        $uploadOk = 0;
+if(isset($_POST['submit'])){
+    $targetDir = "uploads/";
+    $allowTypes = array('jpg','png','jpeg','gif');
+
+    $images_arr = array();
+    foreach($_FILES['images']['name'] as $key=>$val){
+        $image_name = $_FILES['images']['name'][$key];
+        $tmp_name   = $_FILES['images']['tmp_name'][$key];
+        $size       = $_FILES['images']['size'][$key];
+        $type       = $_FILES['images']['type'][$key];
+        $error      = $_FILES['images']['error'][$key];
+
+        $fileName = basename($_FILES['images']['name'][$key]);
+        $targetFilePath = $targetDir . $fileName;
+
+        $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
+        if(in_array($fileType, $allowTypes)){
+            if(move_uploaded_file($_FILES['images']['tmp_name'][$key],$targetFilePath)){
+                $images_arr[] = $targetFilePath;
+            }
+        }
     }
 }
-// Check if file already exists
-if (file_exists($target_file)) {
-    echo "Sorry, file already exists.";
-    $uploadOk = 0;
-}
-// Check file size
-if ($_FILES["fileToUpload"]["size"] > 500000) {
-    echo "Sorry, your file is too large.";
-    $uploadOk = 0;
-}
-// Allow certain file formats
-if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-&& $imageFileType != "gif" ) {
-    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-    $uploadOk = 0;
-}
-// Check if $uploadOk is set to 0 by an error
-if ($uploadOk == 0) {
-    echo "Sorry, your file was not uploaded.";
-// if everything is ok, try to upload file
-} else {
-    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-    } else {
-        echo "Sorry, there was an error uploading your file.";
-    }
-}
+header('Location: index.html');
+exit;
 ?>
