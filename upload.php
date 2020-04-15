@@ -22,13 +22,7 @@ if(isset($_POST['submit'])){
             }
         }
     }
-
-    if(!empty($images_arr)){ ?>
-        <ul>
-        <?php foreach($images_arr as $image_src){ ?>
-            <li><img src="<?php echo $image_src; ?>" alt=""></li>
-        <?php } ?>
-        </ul>
-<?php }
 }
+header('Location: index.html');
+exit;
 ?>
