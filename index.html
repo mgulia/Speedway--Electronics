@@ -1,34 +1,22 @@
-<!<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
-  <title>Speedway Portal</title>
-<style>
-  ul, ol, li{
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-  .container{padding: 20px;}
-  .upload-div{margin-bottom: 25px;}
-  .gallery{width:100%; float:left; margin-top:30px;}
-  .gallery ul{margin:0; padding:0; list-style-type: none;}
-  .gallery ul li{padding: 7px; border: 2px solid #ccc; float:left; margin: 10px 7px; background:none; width: auto; height: auto;}
-  .gallery img{width:250px;}
-</style>
+  <link rel="stylesheet" type="text/css" href="qrStyle.css">
+  <title>QR Generator</title>
 </head>
+<body style="background-color:#F5F5F5">
+  <br><br><br><br><br><br><br>
+ <center>
+ <font face="impact" size="8">QR Generator</font>
 
-<body>
-<div class="container">
-  <div class="upload-div">
-    <form method="post" id="uploadForm" enctype="multipart/form-data" action="upload.php">
-      <label>Choose Images</label>
-      <input type="file" name="images[]" id="images" multiple>
-      <input type="submit" name="submit" value="UPLOAD"/>
-    </form>
-    <div id="uploadStatus"></div>
-  </div>
+ <img src="images/logo.svg">
+ <br><br><br><br>
+  <form action="upload.php" method="POST" enctype="multipart/multipart/form-data">
+    <input class ="button" type="file" name="file">
 
-  <div class="gallery" id="imagesPreview"></div>
-</div>
+    <br><br>
+    <button class="button" type="submit" name="submit">UPLOAD</button>
+  </form>
+</center>
 </body>
-</html>
+</html?
